@@ -70,9 +70,18 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const updatecart = [...cart];
+      const productIndex = updatecart.findIndex(product => product.id === productId);
+
+      if (productIndex >= 0) {
+        updatecart.splice(productIndex, 1);
+        setCart(updatecart);
+        localStorage.setItem("@RocketShoes:cart", JSON.stringify(updatecart));
+      } else {
+        throw Error();
+      }
     } catch {
-      // TODO
+      toast.error('Erro na remoção do produto')
     }
   };
 
